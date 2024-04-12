@@ -12,7 +12,6 @@ import { ControlMaquinasComponent } from './control-maquinas/control-maquinas.co
 
 @NgModule({
   declarations: [
-    HttpClientModule,
     AppComponent,
     HomeComponent,
     NotaNuevaComponent,
@@ -21,6 +20,7 @@ import { ControlMaquinasComponent } from './control-maquinas/control-maquinas.co
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     RouterModule
   ],
