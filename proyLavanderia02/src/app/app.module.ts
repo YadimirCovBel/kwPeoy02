@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -11,6 +12,7 @@ import { ControlMaquinasComponent } from './control-maquinas/control-maquinas.co
 
 @NgModule({
   declarations: [
+    HttpClientModule,
     AppComponent,
     HomeComponent,
     NotaNuevaComponent,
