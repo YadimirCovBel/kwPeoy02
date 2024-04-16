@@ -1,11 +1,24 @@
+<h1> proyecto KW</h1>
 <header>
+<div class="contenedorHeaderPrincipal">
+  <div class="espacioIzquierda"></div>
+
+
   <nav>
-  <ul>
-  <li><a routerLink="/home">Inicio</a></li>
-  <li><a routerLink="/nota-nueva">Nota Nueva</a></li>
-  <li><a routerLink="/login">Iniciar Sesión</a></li>
-  <li><a routerLink="/control-maquinas">Control de Máquinas</a></li>
+  <ul >
+  <li id="logo"><a href="#">KW</a></li>  
+  <li ><a routerLink="/home" class="actived">Inicio</a></li>
+  <li ><a routerLink="/nota-nueva" class="actived">Nota Nueva</a></li>
+  <li ><a routerLink="/login" class="actived">Iniciar Sesión</a></li>
+  <li ><a routerLink="/control-maquinas" class="actived">Control de Máquinas</a></li>
   </ul>
   </nav>
-  </header>
+
+  <div class="espacioDerecha"></div>
+</div>
+
+</header>
 <router-outlet></router-outlet>
+
+<footer>  Automatización de reportes Notas KW
+  by Yadimir</footer>
