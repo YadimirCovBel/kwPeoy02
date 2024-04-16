@@ -28,7 +28,9 @@ header {
 
 header ul{
     
-    display: table;
+    display: flex;
+    align-items: center;
+    list-style: none;
     width: 50%;
     height: inherit;
     margin: 0;
@@ -36,12 +38,13 @@ header ul{
 }
 header nav > ul {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
 }
 header ul li{
     display: inline-block;
     margin: auto;
+    margin-right: 20px;
     text-align: center;
     line-height: 80px;
 }
