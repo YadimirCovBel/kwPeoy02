@@ -1,10 +1,10 @@
-<p>nota-nueva works!</p>
+ <p>nota-nueva works!</p>
 <body>
   
     <div id="notaDatosRecoleccion" class="nota">
       <h1>Nota Nueva</h1>
       <h3>Datos Recolecta</h3>
-      <form class="formNotaNueva">
+      <form class="formNotaNueva" (submit)="enviarFormulario ()">
         <p>
         <label>Cliente</label>  
         <input type="text" name="Cliente">
@@ -19,7 +19,7 @@
   
         <p>
           <label for="serviciosHoteleria">Seleccionar Servicios Hoteleria</label>
-          <select id="hoteleria">
+          <select id="hoteleria" name="servicio">
             <option value="">Seleccionar servicio</option>
             <option value="almoada">Almoada</option>
             <option value="fundasAlmohadasViejas">Fundas Almohadas Viejas</option>
@@ -46,7 +46,32 @@
             <option value="cortinaBlackout">Cortina Blackout</option>
           </select>
         </p>
-      </div>
+        <p>
+            <label for="cantidadNumerica">Cantidad Numérica:</label>
+            <input type="number" id="cantidadNumerica">
+        </p>
+        <button type="button" id="btnAgregar" (click)="agregarCantidad ()">Agregar Cantidad</button>
+        <p id="cantidadMostrada">{{cantidadSeleccionada}}</p>
+    </div>
+
+    <script>
+        const selectServicio = document.getElementById('hoteleria');
+        const inputCantidad = document.getElementById('cantidadNumerica');
+        const btnAgregar = document.getElementById('btnAgregar');
+        const cantidadMostrada = document.getElementById('cantidadMostrada');
+            //evento de cambio en el select
+        selectServicio.addEventListener('change', () => {
+            //Obtener el valor Selecionado
+            const servicioSeleccionado = selectServicio.value;
+            //muestra el valor en la consola
+            console.log('Servicio selecionado: ${servicioSelecionado}');
+        });
+        //evento de clic en el boton
+        btnAgregar.addEventListener('click', () => {
+            const cantida = inputCantidad.value;
+            cantidadMostrada.textContent = 'cantidad seleccionada: ${cantidad}';
+        })
+      </script>
       <div id="descartesHospital" class="nota">
         <h3>Descartes Hospital</h3>
              
