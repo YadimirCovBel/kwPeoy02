@@ -1,8 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors')//importe cors
 const app = express();
 
+app.use(cors()); //habilite cors
 app.use(bodyParser.json());
 
 mongoose.connect('mongodb:localhost/backend', {

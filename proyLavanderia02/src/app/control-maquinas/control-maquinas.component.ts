@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./control-maquinas.component.css']
 })
 export class ControlMaquinasComponent implements OnInit {
-  estado = 0
+  estado = 0;
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
@@ -15,10 +15,10 @@ export class ControlMaquinasComponent implements OnInit {
   }
 
   toggleEstado() {
-    this.http.get('/estado').subscribe((data: any) => {
-     this.estado = data.valor;
+    this.http.get('http://localhost:3000/estado').subscribe((data: any) => {
+      this.estado = data.valor;
       const nuevoValor = this.estado === 0 ? 1 : 0;
-      this.http.post('/estado', { valor: nuevoValor }).subscribe();
+      this.http.post('http://localhost:3000/estado', { valor: nuevoValor }).subscribe();
     });
   }
 }
