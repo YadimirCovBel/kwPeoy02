@@ -7,7 +7,7 @@ const app = express();
 app.use(cors()); //habilite cors
 app.use(bodyParser.json());
 
-mongoose.connect('mongodb:localhost/backend', {
+mongoose.connect('mongodb://localhost/backend', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
@@ -24,6 +24,7 @@ const Estado = mongoose.model('Estado', EstadoSchema);
 //obtener estado actual
 app.get('/estado', async (req,res) => {
     const estado = await Estado.findOne();
+    console.log('Estado actual: ', estado || {valor:0}); //imprime el estado actual
     res.json(estado || {valor: 0});
 });
 
@@ -31,6 +32,7 @@ app.get('/estado', async (req,res) => {
 app.post('/estado', async (req,res) => {
     const estado = await Estado.findOne();
     const nuevoValor = estado && estado.valor === 0 ? 1:0; 
+    console.log('Nuevo valor: ', {valor:nuevoValor}); //imprime el nuevo valor
     await Estado.findOneAndUpdate({}, {valor: nuevoValor}, {upsert: true});
     res.json({ valor:nuevoValor});
 });
@@ -38,5 +40,5 @@ app.post('/estado', async (req,res) => {
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT,() => {
-    console.log('Servidor corriendo en puerto ${PORT}');
+    console.log(`Servidor corriendo en puerto ${PORT}`);
 });
