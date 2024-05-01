@@ -11,17 +11,15 @@ export class ControlMaquinasComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.toggleEstado();
+    // se borro esto this.toggleEstado();
   }
 
-  toggleEstado() {
-    this.http.get('http://localhost:3000/estado').subscribe((data: any) => {
-      this.estado = data.valor;
-      console.log('Estado actual: ', this.estado); // Imprime el estado actual en la consola del navegador
-      const nuevoValor = this.estado === 0 ? 1 : 0;
-      this.http.post('http://localhost:3000/estado', { valor: nuevoValor }).subscribe(() => {
-        window.location.reload(); //esto recargara la pagina web
-      });
+toggleEstado() {
+  const nuevoValor = this.estado === 0 ? 1 : 0; //movi el cosnt de lugar 
+  this.http.post('http://localhost:3000/estado', { valor: nuevoValor }).subscribe(() => {
+      this.estado = nuevoValor; // Actualiza el estado local
+      console.log('Nuevo valor: ', nuevoValor); // Imprime el nuevo valor en la consola del navegador
+      // No necesitamos recargar la página aquí, ya que el estado se ha actualizado
     });
-  }
+}
 }
