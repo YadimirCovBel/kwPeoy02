@@ -19,7 +19,9 @@ export class ControlMaquinasComponent implements OnInit {
       this.estado = data.valor;
       console.log('Estado actual: ', this.estado); // Imprime el estado actual en la consola del navegador
       const nuevoValor = this.estado === 0 ? 1 : 0;
-      this.http.post('http://localhost:3000/estado', { valor: nuevoValor }).subscribe();
+      this.http.post('http://localhost:3000/estado', { valor: nuevoValor }).subscribe(() => {
+        window.location.reload(); //esto recargara la pagina web
+      });
     });
   }
 }
