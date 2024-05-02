@@ -1,82 +1,21 @@
  <p>nota-nueva works!</p>
-<body>
-  
-    <div id="notaDatosRecoleccion" class="nota">
-      <h1>Nota Nueva</h1>
-      <h3>Datos Recolecta</h3>
-      <form class="formNotaNueva" (submit)="enviarFormulario ()">
-        <p>
-        <label>Cliente</label>  
-        <input type="text" name="Cliente">
-          <label>Fecha Hora Recolecta</label>  
-          <input type="date" name="FechaRecolecta">
-          <label>Numero de Nota</label>  
-          <input type="number" name="NumeroNota">
-            </p>
-          
-  <div id="servicioHoteleria" class="nota">
-            <h3>Servicio Hoteleria</h3>
-  
-        <p>
-          <label for="serviciosHoteleria">Seleccionar Servicios Hoteleria</label>
-          <select id="hoteleria" name="servicio">
-            <option value="">Seleccionar servicio</option>
-            <option value="almoada">Almoada</option>
-            <option value="fundasAlmohadasViejas">Fundas Almohadas Viejas</option>
-            <option value="fundasAlmohadasNuevas">Fundas Almohadas Nuevas</option>
-            <option value="sabanaNueva">Sabana Nueva</option>
-            <option value="sabanaVieja">Sabana Vieja</option>
-            <option value="toallaDeBañoVeja">Toalla De Baño Veja</option>
-            <option value="toallaDeBañoNueva">Toalla De Baño Nueva</option>
-            <option value="tapeteDeBañoVieja">Tapete De Baño Vieja</option>
-            <option value="tapeteDeBañoNueva">Tapete De Baño Nueva</option>
-            <option value="toallaDeManoVieja">Toalla De Mano Vieja</option>
-            <option value="toallaDeManoNueva">Toalla De Mano Nueva</option>
-            <option value="toallaFacial">Toalla Facial</option>
-            <option value="bataDeBaño">Bata De Baño</option>
-            <option value="cobertor">Cobertor</option>
-            <option value="edrecolcha">Edrecolcha</option>
-            <option value="relleno">Relleno</option>
-            <option value="cortinaDeBaño">Cortina De Baño</option>
-            <option value="rodapie">Rodapie</option>
-            <option value="dubeth">Dubeth</option>
-            <option value="protectorDeColchon">Protector De Colchon</option>
-            <option value="pieDeCama">Pie De Cama</option>
-            <option value="limpion">Limpion</option>
-            <option value="cortinaBlackout">Cortina Blackout</option>
-          </select>
-        </p>
-        <p>
-            <label for="cantidadNumerica">Cantidad Numérica:</label>
-            <input type="number" id="cantidadNumerica">
-        </p>
-        <button type="button" id="btnAgregar" (click)="agregarCantidad ()">Agregar Cantidad</button>
-        <p id="cantidadMostrada">{{cantidadSeleccionada}}</p>
-    </div>
+ <div>
+  <h1>Nota Nueva</h1>
+  <label>Cliente:</label>
+  <select [(ngModel)]="clienteSeleccionado">
+    <option *ngFor="let cliente of clientes" [value]="cliente.nombre">{{cliente.nombre}}</option>
+  </select>
 
-    <script>
-        const selectServicio = document.getElementById('hoteleria');
-        const inputCantidad = document.getElementById('cantidadNumerica');
-        const btnAgregar = document.getElementById('btnAgregar');
-        const cantidadMostrada = document.getElementById('cantidadMostrada');
-            //evento de cambio en el select
-        selectServicio.addEventListener('change', () => {
-            //Obtener el valor Selecionado
-            const servicioSeleccionado = selectServicio.value;
-            //muestra el valor en la consola
-            console.log('Servicio selecionado: ${servicioSelecionado}');
-        });
-        //evento de clic en el boton
-        btnAgregar.addEventListener('click', () => {
-            const cantida = inputCantidad.value;
-            cantidadMostrada.textContent = 'cantidad seleccionada: ${cantidad}';
-        })
-      </script>
-      
-     
-        <input type="submit" value="Enviar" >
-  
-      </form>
-    </div>
-  
-  </body>
+  <label>Servicio:</label>
+  <select [(ngModel)]="servicioSeleccionado">
+  <option *ngFor="Let servicio of clientes.find(cliente => cliente.nombre === clienteSeleccionado)?.servicios" [value]="servicio">{{servicio}}</option>
+  </select>
+
+  <label>Cantidad:</label>
+  <input type="number" [(ngModel)]="cantidad">
+  <button (click)="agregarServicio()">Agregar Servicio</button>
+  <ul>
+    <li *ngFor="Let servicio of listaServicios">{{servicio.servicio}}: {{servicio.cantidad}}</li>
+  </ul>
+  <button (click)="enviarDatos()">Enviar</button>
+</div>
