@@ -7,10 +7,10 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./nota-nueva.component.css']
 })
 export class NotaNuevaComponent {
-  cantidadSeleccionada = '';
+  clienteSeleccionado = '';
   servicioSeleccionado = '';
   cantidad = 0;
-  listaServicios = [];
+  listaServicios: { servicio: string; cantidad: number; }[] = [];
   clientes = [
     { nombre: 'hoteleria', servicios: ['Almoada', 'Fundas Almohadas Viejas', 'fundasAlmohadasNuevas', 'sabanaNueva', 'sabanaVieja', 'toallaDeBañoVeja', 'toallaDeBañoNueva', 'tapeteDeBañoVieja', 'tapeteDeBañoNueva', 'toallaDeManoVieja', 'toallaDeManoNueva', 'toallaFacial', 'bataDeBaño', 'cobertor', 'edrecolcha', 'relleno', 'cortinaDeBaño', 'rodapie', 'dubeth', 'protectorDeColchon', 'pieDeCama', 'limpion', 'cortinaBlackout' /* ... otros servicios ... */] },
     { nombre: 'hospital', servicios: [ 'cobertor', 'toallaDeBaño', 'toallaDeMano', 'tapeteDeBaño' /* ... servicios ... */] },
@@ -41,5 +41,11 @@ export class NotaNuevaComponent {
     this.http.post('http://tu-url-de-backend.com/servicios', datosAEnviar).subscribe(res => {
       console.log('Datos enviados', res);
     });
+  }
+
+  // Función para obtener los servicios del cliente seleccionado
+  getServiciosClienteSeleccionado() {
+    const cliente = this.clientes.find(c => c.nombre === this.clienteSeleccionado);
+    return cliente ? cliente.servicios : [];
   }
 }
