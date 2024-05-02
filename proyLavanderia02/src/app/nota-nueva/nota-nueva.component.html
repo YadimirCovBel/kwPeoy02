@@ -8,14 +8,14 @@
 
   <label>Servicio:</label>
   <select [(ngModel)]="servicioSeleccionado">
-  <option *ngFor="Let servicio of clientes.find(cliente => cliente.nombre === clienteSeleccionado)?.servicios" [value]="servicio">{{servicio}}</option>
+    <option *ngFor="let servicio of getServiciosClienteSeleccionado()" [value]="servicio">{{servicio}}</option>
   </select>
 
   <label>Cantidad:</label>
   <input type="number" [(ngModel)]="cantidad">
   <button (click)="agregarServicio()">Agregar Servicio</button>
   <ul>
-    <li *ngFor="Let servicio of listaServicios">{{servicio.servicio}}: {{servicio.cantidad}}</li>
+    <li *ngFor="let servicio of listaServicios">{{servicio.servicio}}: {{servicio.cantidad}}</li>
   </ul>
   <button (click)="enviarDatos()">Enviar</button>
 </div>
