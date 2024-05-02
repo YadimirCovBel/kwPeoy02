@@ -7,27 +7,39 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./nota-nueva.component.css']
 })
 export class NotaNuevaComponent {
+  cantidadSeleccionada = '';
   servicioSeleccionado = '';
   cantidad = 0;
-  cantidadSeleccionada = '';
+  listaServicios = [];
+  clientes = [
+    { nombre: 'hoteleria', servicios: ['Almoada', 'Fundas Almohadas Viejas', 'fundasAlmohadasNuevas', 'sabanaNueva', 'sabanaVieja', 'toallaDeBañoVeja', 'toallaDeBañoNueva', 'tapeteDeBañoVieja', 'tapeteDeBañoNueva', 'toallaDeManoVieja', 'toallaDeManoNueva', 'toallaFacial', 'bataDeBaño', 'cobertor', 'edrecolcha', 'relleno', 'cortinaDeBaño', 'rodapie', 'dubeth', 'protectorDeColchon', 'pieDeCama', 'limpion', 'cortinaBlackout' /* ... otros servicios ... */] },
+    { nombre: 'hospital', servicios: [ 'cobertor', 'toallaDeBaño', 'toallaDeMano', 'tapeteDeBaño' /* ... servicios ... */] },
+    { nombre: 'descartesHospital', servicios: [ 'toallaDeBañoDescartesClorhexidina', 'toallaDeBañoDescartesArrastre', 'toallaDeBañoDescartesTinta', 'toallaDeBañoDescartesVieja', 'toallaDeBañoDescartesCloro', 'toallaDeBañoDescartesPuntoAzul', 'cobertorDescartesClorhexidina', 'cobertorDescartesArrastre', 'cobertorDescartesTinta', 'cobertorDescartesVieja', 'cobertorDescartesCloro', 'cobertorDescartesPuntoAzul', 'toallaDeManoDescartesClorhexidina', 'toallaDeManoDescartesArrastre', 'toallaDeManoDescartesTinta', 'toallaDeManoDescartesVieja', 'toallaDeManoDescartesCloro', 'toallaDeManoDescartesPuntoAzul' /* ... servicios ... */] },
+    { nombre: 'manteleria', servicios: [ 'moyeton', 'moyetonPlastificado', 'banda', 'camino', 'bambalina', 'bambalinaGrande', 'cubreSilla', 'cubreCharola', 'cubreCabrilla', 'cubreMantel', 'liston', 'tablon', 'tablonGrande', 'mantelGrande', 'mantelMediano', 'mantelRedondo', 'mantelImperial', 'mantelSpandex', 'servilleta', 'cortinaNegra', 'moño', 'bandera', 'filipina', 'chamarraTermica', 'chaleco', 'trajeDeBombero5pz' /* ... servicios ... */] },// ... otros clientes ...
+    { nombre: 'servicioFrente', servicios: [ 'encargoPorKilo', 'planchaDocena', 'planchaPieza', 'blusas', 'camisas', 'corbatas', 'chamarras', 'playeras', 'faldas', 'pantalones', 'sacos', 'sweters', 'trajes2Pz', 'trajes3Pz', 'vestidos' /* ... servicios ... */] },
+    
+  ];
 
-  constructor(private http: HttpClient){}//servicio
-  agregarCantidad() {
-    this.cantidadSeleccionada = `Cantidad seleccionada: ${this.cantidad}`;
-  
-}
+  constructor(private http: HttpClient) {}
 
-enviarFormulario() {
-  // Aquí puedes enviar los datos a tu backend
-  // Puedes usar HttpClient para hacer una petición HTTP a tu servidor
-  const datos = {
-    servicio: this.servicioSeleccionado,
-    cantidad: this.cantidad
-  };
-  // Realizar la solicitud POST al backend (reemplaza la URL con la tuya)
-  this.http.post('http://tu-url-de-backend.com', datos).subscribe(res => {
-    console.log(res); // Manejar la respuesta del backend aquí
-  });
+  agregarServicio() {
+    if (this.servicioSeleccionado && this.cantidad > 0) {
+      this.listaServicios.push({
+        servicio: this.servicioSeleccionado,
+        cantidad: this.cantidad
+      });
+      this.servicioSeleccionado = '';
+      this.cantidad = 0;
+    }
+  }
 
-}
+  enviarDatos() {
+    const datosAEnviar = {
+      cliente: this.clienteSeleccionado,
+      servicios: this.listaServicios
+    };
+    this.http.post('http://tu-url-de-backend.com/servicios', datosAEnviar).subscribe(res => {
+      console.log('Datos enviados', res);
+    });
+  }
 }
