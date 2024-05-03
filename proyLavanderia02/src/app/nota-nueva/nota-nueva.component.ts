@@ -38,8 +38,16 @@ export class NotaNuevaComponent {
       cliente: this.clienteSeleccionado,
       servicios: this.listaServicios
     };
-    this.http.post('http://tu-url-de-backend.com/servicios', datosAEnviar).subscribe(res => {
+    //cambie 3000 por 3002
+    this.http.post('http://localhost:3002/servicios', datosAEnviar).subscribe({
+    next: (res) => {
       console.log('Datos enviados', res);
+      // Limpia los datos después de enviar
+      this.listaServicios = []; // Se limpia la lista de servicios
+      this.clienteSeleccionado = ''; // Se limpia el cliente seleccionado
+      // Agrega cualquier otra limpieza que necesites aquí
+    },
+    error: (err) => console.error('Error al enviar datos', err)
     });
   }
 
