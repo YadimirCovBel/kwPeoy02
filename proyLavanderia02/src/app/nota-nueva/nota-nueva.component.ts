@@ -12,12 +12,15 @@ export class NotaNuevaComponent {
   cantidad = 0;
   listaServicios: { servicio: string; cantidad: number; }[] = [];
   clientes = [
-    { nombre: 'hoteleria', servicios: ['Almoada', 'Fundas Almohadas Viejas', 'fundasAlmohadasNuevas', 'sabanaNueva', 'sabanaVieja', 'toallaDeBañoVeja', 'toallaDeBañoNueva', 'tapeteDeBañoVieja', 'tapeteDeBañoNueva', 'toallaDeManoVieja', 'toallaDeManoNueva', 'toallaFacial', 'bataDeBaño', 'cobertor', 'edrecolcha', 'relleno', 'cortinaDeBaño', 'rodapie', 'dubeth', 'protectorDeColchon', 'pieDeCama', 'limpion', 'cortinaBlackout' /* ... otros servicios ... */] },
-    { nombre: 'hospital', servicios: [ 'cobertor', 'toallaDeBaño', 'toallaDeMano', 'tapeteDeBaño' /* ... servicios ... */] },
-    { nombre: 'descartesHospital', servicios: [ 'toallaDeBañoDescartesClorhexidina', 'toallaDeBañoDescartesArrastre', 'toallaDeBañoDescartesTinta', 'toallaDeBañoDescartesVieja', 'toallaDeBañoDescartesCloro', 'toallaDeBañoDescartesPuntoAzul', 'cobertorDescartesClorhexidina', 'cobertorDescartesArrastre', 'cobertorDescartesTinta', 'cobertorDescartesVieja', 'cobertorDescartesCloro', 'cobertorDescartesPuntoAzul', 'toallaDeManoDescartesClorhexidina', 'toallaDeManoDescartesArrastre', 'toallaDeManoDescartesTinta', 'toallaDeManoDescartesVieja', 'toallaDeManoDescartesCloro', 'toallaDeManoDescartesPuntoAzul' /* ... servicios ... */] },
-    { nombre: 'manteleria', servicios: [ 'moyeton', 'moyetonPlastificado', 'banda', 'camino', 'bambalina', 'bambalinaGrande', 'cubreSilla', 'cubreCharola', 'cubreCabrilla', 'cubreMantel', 'liston', 'tablon', 'tablonGrande', 'mantelGrande', 'mantelMediano', 'mantelRedondo', 'mantelImperial', 'mantelSpandex', 'servilleta', 'cortinaNegra', 'moño', 'bandera', 'filipina', 'chamarraTermica', 'chaleco', 'trajeDeBombero5pz' /* ... servicios ... */] },// ... otros clientes ...
-    { nombre: 'servicioFrente', servicios: [ 'encargoPorKilo', 'planchaDocena', 'planchaPieza', 'blusas', 'camisas', 'corbatas', 'chamarras', 'playeras', 'faldas', 'pantalones', 'sacos', 'sweters', 'trajes2Pz', 'trajes3Pz', 'vestidos' /* ... servicios ... */] },
-    
+    { nombre: 'hospitalSanJavier', servicios: [ 'cobertor', 'toallaDeBaño', 'toallaDeMano', 'tapeteDeBaño' /* ... servicios ... */] },
+    { nombre: 'descartesHospitalSanJavier', servicios: [ 'toallaDeBañoDescartes', 'toallaDeManoDescartes', 'tapeteDescarte', 'cobertorDescartes',] },
+    {nombre: 'incrementoStockHospitalSanJavier', servicios:['cobertor', 'toallaDeBaño', 'toallaDeMano', 'tapeteDeBaño',]},
+    { nombre: 'casaAlexiaDesarolloDisa', servicios: ['Almoada','fundasAlmohadas','sabana','toallaDeBaño','tapeteDeBaño','toallaDeMano','relleno','dubeth','protectorDeColchon','cobertor','edrecolcha','rodapie','servilletas','mantel','liston','bataDeBaño','banda','cubreMantel','cubreSilla','limpion','camino','cojin',] },
+    { nombre: 'fenix', servicios:['Almoada', 'FundasAlmohadasViejas', 'fundasAlmohadasNuevas', 'sabanaNueva', 'sabanaVieja', 'toallaDeBañoVeja', 'toallaDeBañoNueva', 'tapeteDeBañoVieja', 'tapeteDeBañoNueva', 'toallaDeManoVieja', 'toallaDeManoNueva', 'cobertor', 'edrecolcha', 'relleno', 'dubeth', 'protectorDeColchon','cortinaBlackout','cortinaDeBaño','cortinaFrescura','rodapie','bataDeBaño','cojin','dulce','fundaCojin','servilletas','mantel','tablon','cubreMantel','liston','cubreCabrilla','cubreCharola','cubreSilla','bambalina','camino','banda','moyeton','camisa','limpion',]},
+    { nombre: 'incrementoStockHospitalSanJavier', servicios: [ 'cobertor', 'toallaDeBaño', 'toallaDeMano', 'tapeteDeBaño' ] },
+    { nombre: 'expoGDLmanteleria', servicios: [ 'moyeton', 'moyetonPlastificado', 'camino', 'bambalina', 'bambalinaGrande', 'cubreSilla', 'cubreCharola', 'cubreCabrilla', 'cubreMantel', 'tablon', 'tablonGrande', 'mantelGrande', 'mantelMediano', 'mantelRedondo', 'mantelImperial', 'mantelSpandex', 'servilleta', 'cortinaNegra', 'moño', 'bandera', 'filipina', 'chamarraTermica', 'chaleco', 'trajeDeBombero5pz'] },
+    { nombre: 'servicioFrente', servicios: [ 'encargoPorKilo', 'planchaDocena', 'planchaPieza', 'blusas', 'camisas', 'corbatas', 'chamarras', 'playeras', 'faldas', 'pantalones', 'sacos', 'sweters', 'trajes2Pz', 'trajes3Pz', 'vestidos' ] },
+    // ... otros clientes ...
   ];
 
   constructor(private http: HttpClient) {}
@@ -45,7 +48,6 @@ export class NotaNuevaComponent {
       // Limpia los datos después de enviar
       this.listaServicios = []; // Se limpia la lista de servicios
       this.clienteSeleccionado = ''; // Se limpia el cliente seleccionado
-      // Agrega cualquier otra limpieza que necesites aquí
     },
     error: (err) => console.error('Error al enviar datos', err)
     });
