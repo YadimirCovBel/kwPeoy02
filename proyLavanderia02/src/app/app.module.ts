@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { NotaNuevaComponent } from './nota-nueva/nota-nueva.component';
 import { LogInComponent } from './log-in/log-in.component';
 import { ControlMaquinasComponent } from './control-maquinas/control-maquinas.component';
+import { ListaPreciosComponent } from './lista-precios/lista-precios.component';
+import { AcumuladoClienteComponent } from './acumulado-cliente/acumulado-cliente.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { ControlMaquinasComponent } from './control-maquinas/control-maquinas.co
     HomeComponent,
     NotaNuevaComponent,
     LogInComponent,
-    ControlMaquinasComponent
+    ControlMaquinasComponent,
+    ListaPreciosComponent,
+    AcumuladoClienteComponent
   ],
   imports: [
     BrowserModule,
