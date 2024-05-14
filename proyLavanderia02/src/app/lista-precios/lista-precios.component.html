@@ -1,0 +1,10 @@
+<p>lista-precios works!</p>
+
+<div *ngIf="precios.length > 0">
+    <h2>Precios de Servicios</h2>
+    <ul>
+      <li *ngFor="let item of precios">
+        {{ item.servicio }}: {{ item.precio | currency:'MXN' }}
+      </li>
+    </ul>
+  </div>
