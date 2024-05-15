@@ -11,6 +11,13 @@
     <option *ngFor="let servicio of getServiciosClienteSeleccionado()" [value]="servicio">{{servicio}}</option>
   </select>
 
+  <!-- Este es el nuevo selector que se mostrará solo si se selecciona 'descartesHospitalSanJavier' -->
+<div *ngIf="clienteSeleccionado === 'descartesHospitalSanJavier'">
+  <label>Razón del Descarte:</label>
+  <select [(ngModel)]="razonDescarteSeleccionada">
+    <option *ngFor="let razon of razonesDescarte" [value]="razon">{{ razon }}</option>
+  </select>
+
   <label>Cantidad:</label>
   <input type="number" [(ngModel)]="cantidad">
   <button (click)="agregarServicio()">Agregar Servicio</button>
