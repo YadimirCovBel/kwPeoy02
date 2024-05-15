@@ -10,11 +10,13 @@ export class NotaNuevaComponent {
   clienteSeleccionado = '';
   servicioSeleccionado = '';
   cantidad = 0;
+  razonDescarteSeleccionada = ''; // <-- Nueva propiedad para el que aparesca el selector para indicar razon del descarte
   listaServicios: { servicio: string; cantidad: number; }[] = [];
+  razonesDescarte = ['Clorhexidina', 'Arrastre', 'Tinta', 'Rota/Vieja', 'Cloro', 'Punto Azul']; // <-- Nuevo arreglo para indicar la razon de descarte
   clientes = [
     { nombre: 'hospitalSanJavier', servicios: [ 'cobertor', 'toallaDeBaño', 'toallaDeMano', 'tapeteDeBaño' /* ... servicios ... */] },
     { nombre: 'descartesHospitalSanJavier', servicios: [ 'toallaDeBañoDescartes', 'toallaDeManoDescartes', 'tapeteDescarte', 'cobertorDescartes',] },
-    {nombre: 'incrementoStockHospitalSanJavier', servicios:['cobertor', 'toallaDeBaño', 'toallaDeMano', 'tapeteDeBaño',]},
+    { nombre: 'incrementoStockHospitalSanJavier', servicios:['cobertor', 'toallaDeBaño', 'toallaDeMano', 'tapeteDeBaño',]},
     { nombre: 'casaAlexiaDesarolloDisa', servicios: ['Almoada','fundasAlmohadas','sabana','toallaDeBaño','tapeteDeBaño','toallaDeMano','relleno','dubeth','protectorDeColchon','cobertor','edrecolcha','rodapie','servilletas','mantel','liston','bataDeBaño','banda','cubreMantel','cubreSilla','limpion','camino','cojin',] },
     { nombre: 'fenix', servicios:['Almoada', 'FundasAlmohadasViejas', 'fundasAlmohadasNuevas', 'sabanaNueva', 'sabanaVieja', 'toallaDeBañoVeja', 'toallaDeBañoNueva', 'tapeteDeBañoVieja', 'tapeteDeBañoNueva', 'toallaDeManoVieja', 'toallaDeManoNueva', 'cobertor', 'edrecolcha', 'relleno', 'dubeth', 'protectorDeColchon','cortinaBlackout','cortinaDeBaño','cortinaFrescura','rodapie','bataDeBaño','cojin','dulce','fundaCojin','servilletas','mantel','tablon','cubreMantel','liston','cubreCabrilla','cubreCharola','cubreSilla','bambalina','camino','banda','moyeton','camisa','limpion',]},
     { nombre: 'incrementoStockHospitalSanJavier', servicios: [ 'cobertor', 'toallaDeBaño', 'toallaDeMano', 'tapeteDeBaño' ] },
@@ -26,6 +28,7 @@ export class NotaNuevaComponent {
   constructor(private http: HttpClient) {}
 
   agregarServicio() {
+    if (this.clienteSeleccionado === 'descartesHospitalSanJavier' && this.razonDescarteSeleccionada) {}// Lógica para manejar la razón del descarte
     if (this.servicioSeleccionado && this.cantidad > 0) {
       this.listaServicios.push({
         servicio: this.servicioSeleccionado,
@@ -39,7 +42,9 @@ export class NotaNuevaComponent {
   enviarDatos() {
     const datosAEnviar = {
       cliente: this.clienteSeleccionado,
-      servicios: this.listaServicios
+      servicios: this.listaServicios,
+      razonDescarte: this.clienteSeleccionado === 'descartesHospitalSanJavier' ? 
+      this.razonDescarteSeleccionada : undefined // <-- Incluir razón del descarte
     };
     //cambie 3000 por 3002
     this.http.post('http://localhost:3002/servicios', datosAEnviar).subscribe({
