@@ -30,8 +30,12 @@ export class NotaNuevaComponent {
   constructor(private http: HttpClient) {
       // Actualiza la fecha y hora cada segundo
       setInterval(() => this.actualizarFechaHora(), 1000);
+    }
+    // Método para actualizar la fecha y hora en tiempo real
+  actualizarFechaHora() {
+    const fechaUTC = new Date();
+    this.fechaNota = fechaUTC.toLocaleString('es-MX', { timeZone: 'America/Mexico_City' });
   }
-
     // Método para incrementar el folio cada vez que se agrega un servicio
     generarFolio() {
       this.folioActual++; // Incrementa el folio actual
@@ -55,6 +59,7 @@ export class NotaNuevaComponent {
   }
 
   enviarDatos() {
+    this.actualizarFechaHora();
     const datosAEnviar = {
       cliente: this.clienteSeleccionado,
       servicios: this.listaServicios,
