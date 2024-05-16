@@ -10,6 +10,7 @@ export class NotaNuevaComponent {
   clienteSeleccionado = '';
   servicioSeleccionado = '';
   cantidad = 0;
+  folioActual = 0; // Para el folio automático
   razonDescarteSeleccionada = ''; // <-- Nueva propiedad para el que aparesca el selector para indicar razon del descarte
   listaServicios: { servicio: string; cantidad: number; }[] = [];
   razonesDescarte = ['Clorhexidina', 'Arrastre', 'Tinta', 'Rota/Vieja', 'Cloro', 'Punto Azul']; // <-- Nuevo arreglo para indicar la razon de descarte
@@ -27,6 +28,11 @@ export class NotaNuevaComponent {
 
   constructor(private http: HttpClient) {}
 
+    // Método para incrementar el folio cada vez que se agrega un servicio
+    generarFolio() {
+      this.folioActual++; // Incrementa el folio actual
+    }
+
   agregarServicio() {
     if (this.clienteSeleccionado === 'descartesHospitalSanJavier' && this.razonDescarteSeleccionada) {}// Lógica para manejar la razón del descarte
     if (this.servicioSeleccionado && this.cantidad > 0) {
@@ -36,6 +42,7 @@ export class NotaNuevaComponent {
       });
       this.servicioSeleccionado = '';
       this.cantidad = 0;
+      this.generarFolio(); // Llama al método para generar el folio
     }
   }
 
