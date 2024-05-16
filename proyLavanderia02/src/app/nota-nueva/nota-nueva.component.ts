@@ -11,6 +11,7 @@ export class NotaNuevaComponent {
   servicioSeleccionado = '';
   cantidad = 0;
   folioActual = 0; // Para el folio automático
+  fechaNota = '';     // Propiedad para la fecha y hora de la nota
   razonDescarteSeleccionada = ''; // <-- Nueva propiedad para el que aparesca el selector para indicar razon del descarte
   listaServicios: { servicio: string; cantidad: number; }[] = [];
   razonesDescarte = ['Clorhexidina', 'Arrastre', 'Tinta', 'Rota/Vieja', 'Cloro', 'Punto Azul']; // <-- Nuevo arreglo para indicar la razon de descarte
@@ -26,11 +27,18 @@ export class NotaNuevaComponent {
     // ... otros clientes ...
   ];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+      // Actualiza la fecha y hora cada segundo
+      setInterval(() => this.actualizarFechaHora(), 1000);
+  }
 
     // Método para incrementar el folio cada vez que se agrega un servicio
     generarFolio() {
       this.folioActual++; // Incrementa el folio actual
+    }
+    obtenerFechaGuadalajara() {
+      const fechaUTC = new Date(); // Ajusta la fecha UTC a la zona horaria de Guadalajara
+      this.fechaNota = fechaUTC.toLocaleString('es-MX', { timeZone: 'America/Mexico_City' }); // <-- Agregado
     }
 
   agregarServicio() {
@@ -51,7 +59,9 @@ export class NotaNuevaComponent {
       cliente: this.clienteSeleccionado,
       servicios: this.listaServicios,
       razonDescarte: this.clienteSeleccionado === 'descartesHospitalSanJavier' ? 
-      this.razonDescarteSeleccionada : undefined // <-- Incluir razón del descarte
+      this.razonDescarteSeleccionada : undefined, // <-- Incluir razón del descarte
+      folio: this.folioActual, // Incluye el folio en los datos a enviar
+      fecha: this.fechaNota // Agrega la fecha a los datos a enviar <-- Agregado
     };
     //cambie 3000 por 3002
     this.http.post('http://localhost:3002/servicios', datosAEnviar).subscribe({
