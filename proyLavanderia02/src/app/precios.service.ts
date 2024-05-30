@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,15 +9,15 @@ export class PreciosService {
   private preciosPorCliente: { [key: string]: { [servicio: string]: number } } = {
     //estructura de precios 
     fenix:{
-      Almoada:12.27,
+      Almohada: 12.27,
       FundasAlmohadasViejas: 2.30,
       fundasAlmohadasNuevas: 2.30,
       sabanaNueva: 4.76,
       sabanaVieja: 4.76,
-      toallaDeBañoVeja: 4.23,
+      toallaDeBañoVieja: 4.23,
       toallaDeBañoNueva: 4.23,
-      tapeteDeBañoVieja: 2.50,
-      tapeteDeBañoNueva: 2.50,
+      tapeteDeBañoViejo: 2.50,
+      tapeteDeBañoNuevo: 2.50,
       toallaDeManoVieja: 2.12,
       toallaDeManoNueva: 2.12,
       cobertor: 50.06,
@@ -119,11 +121,16 @@ export class PreciosService {
 
     }
   };
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   //metodo para obtener los precios basados en el cliente
-  obtenerPrecios(cliente: string): { [servicio: string]: number } | null {
-    return this.preciosPorCliente[cliente] || null;
+  obtenerPrecios(cliente: string): Observable<{ [servicio: string]: number } | null> {
+       // Si el cliente existe en el objeto, devuelve un Observable con los precios
+    if (this.preciosPorCliente[cliente]) {
+      return of(this.preciosPorCliente[cliente]);
+    } else {
+      // Si no, devuelve un Observable vacío
+      return of(null);
+    }
   }
-
 }
