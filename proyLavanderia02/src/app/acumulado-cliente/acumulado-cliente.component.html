@@ -1,7 +1,39 @@
 <p>acumulado-cliente works!</p>
 
-<div *ngIf="acumulado">
+<div *ngIf="acumulado.totalAcumulado"> 
     <h2>Acumulado del Cliente</h2>
     <p>Total acumulado: {{ acumulado.totalAcumulado | currency:'MXN' }}</p>
   </div>
   
+<!-- Selector de cliente -->
+<label for="cliente-selector">Cliente:</label>
+<select id="cliente-selector" [(ngModel)]="clienteSeleccionado">
+  <option *ngFor="let cliente of clientes" [value]="cliente.nombre">{{ cliente.nombre }}</option>
+  <!-- Opciones de clientes aquí -->
+</select>
+
+<!-- Selectores de fecha -->
+<label for="fecha-inicio">Fecha Inicio:</label>
+<input type="date" id="fecha-inicio" [(ngModel)]="fechaInicio">
+
+<label for="fecha-fin">Fecha Fin:</label>
+<input type="date" id="fecha-fin" [(ngModel)]="fechaFin">
+
+<button (click)="obtenerAcumulado()">Obtener Datos</button>
+
+<!-- Tabla para mostrar los servicios -->
+<table>
+  <tr>
+    <th>Fecha</th>
+    <th>Folio</th>
+    <th *ngFor="let precio of precios">{{ precio.servicio }}</th>
+
+    <!-- Más columnas según sea necesario -->
+  </tr>
+  <tr *ngFor="let servicio of servicios">
+    <td>{{ servicio.fecha | date: 'mediumDate' }}</td> <!-- Formatea la fecha correctamente -->
+    <td>{{ servicio.folio }}</td>
+    <td *ngFor="let precio of precios">{{ servicio[precio.servicio] }}</td>
+  </tr>
+  <!-- Aquí irían las filas adicionales para totales y cálculos -->
+</table>
