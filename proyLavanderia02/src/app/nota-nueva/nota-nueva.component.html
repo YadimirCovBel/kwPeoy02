@@ -19,10 +19,10 @@
   <select [(ngModel)]="razonDescarteSeleccionada">
     <option *ngFor="let razon of razonesDescarte" [value]="razon">{{ razon }}</option>
   </select>
-
+</div>
   <label>Cantidad:</label>
   <input type="number" [(ngModel)]="cantidad">
-  <button (click)="agregarServicio()">Agregar Servicio</button>
+  <button (click)="agregarServicio()" [disabled]="clienteSeleccionado === 'descartesHospitalSanJavier' && !razonDescarteSeleccionada">Agregar Servicio</button>
   <ul>
     <li *ngFor="let servicio of listaServicios">{{servicio.servicio}}: {{servicio.cantidad}}</li>
   </ul>
