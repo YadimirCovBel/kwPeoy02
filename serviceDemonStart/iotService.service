@@ -1,0 +1,13 @@
+[Unit]
+Description=Start Daemon
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+ExecStart=/usr/bincat /home/yadimir/Desktop/kwProy02/pre-config/02bash.sh
+
+[Install]
+WantedBy=multi-user.target
