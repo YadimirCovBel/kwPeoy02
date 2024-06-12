@@ -7,7 +7,8 @@ StartLimitIntervalSec=0
 Type=simple
 Restart=always
 RestartSec=1
-ExecStart=/usr/bincat /home/yadimir/Desktop/kwProy02/pre-config/02bash.sh
+ExecStart=/bin/bash /home/yadimir/Desktop/kwProy02/pre-config/02bash.sh
+User=yadimir
 
 [Install]
 WantedBy=multi-user.target
