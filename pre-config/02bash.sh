@@ -8,7 +8,8 @@ echo "Leyendo información de red..."
 ip addr > redes.txt
 echo "Archivo de redes creado satisfactoriamente"
 
-
+export SYSTEMD_DIRECTORY=/home/ubuntu/kwProy02/pre-config
+export SYSTEMD_START=/bin/bash /home/ubuntu/kwProy02/pre-config/02bash.sh
 
 # Arrancar MongoDB
 echo "Arrancando MongoDB..."
