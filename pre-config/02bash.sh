@@ -10,6 +10,9 @@ echo "Archivo de redes creado satisfactoriamente"
 
 export SYSTEMD_DIRECTORY=/home/ubuntu/kwProy02/pre-config
 export SYSTEMD_START=/bin/bash /home/ubuntu/kwProy02/pre-config/02bash.sh
+export BACKEND_DIR="/home/ubuntu/kwProy02/backend"
+export ANGULAR_DIR="/home/ubuntu/kwProy02/proyLavanderia02/dist/proy-lavanderia02"
+
 
 # instalar basicos en Rasberry pi
 echo "actualizando..."
@@ -21,10 +24,10 @@ sudo apt install -y build-essential
 build-essential -v
 echo "buid-esential instalando satisfactoriamente..."
 
-echo "instalando wiring pi..."
+echo "instalando WiringPi..."
 sudo apt -y install wiringpi
 gpio -v
-echo "wiringpi instalando satisfactoriamente..."
+echo "WiringPi instalando satisfactoriamente..."
 
 echo "instalando node.js..."
 sudo apt install -y nodejs
