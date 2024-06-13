@@ -1,0 +1,5 @@
+02bash.sh
+hello_world.sh
+kwPeoy02
+procesos.txt
+redes.txt
