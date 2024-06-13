@@ -35,16 +35,20 @@ npm -v
 echo "instalando ng..."
 sudo apt install ng-common
 ng-common -v
+echo "todos los basicos han sido instalandos satisfactoriamente..."
 
 
 # extracting key
 echo "extracting key..."
 ssh -keygen -t rsa
 cat id_rsa.pub
+echo "the key has been extracted satisfactorily ..."
 
 # cloning git
+echo "cloning repo..."
 git clone https://github.com/YadimirCovBel/kwPeoy02.git
 git pull origin main pull
+echo "the repo has been cloned satisfactorily ..."
 
 # Arrancar MongoDB
 echo "Arrancando MongoDB..."
