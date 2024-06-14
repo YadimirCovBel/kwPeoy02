@@ -62,9 +62,13 @@ if [ ! -f "$HOME/.ssh/id_rsa" ]; then
     ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N "" && cat "$HOME/.ssh/id_rsa.pub" && echo "La clave ha sido extraída satisfactoriamente..."
 fi
 
-# cloning git
-echo "cloning repo..."
-git clone https://github.com/YadimirCovBel/kwPeoy02.git
-cd kwPeoy02
-git pull origin main
-echo "the repo has been cloned satisfactorily ..."
+# Clonación o actualización del repositorio Git
+REPO_DIR="$HOME/kwPeoy02"
+if [ ! -d "$REPO_DIR" ]; then
+    echo "Clonando repositorio..."
+    git clone https://github.com/YadimirCovBel/kwPeoy02.git "$REPO_DIR" && echo "El repositorio ha sido clonado satisfactoriamente..."
+else
+    echo "Actualizando repositorio..."
+    cd "$REPO_DIR" && git pull origin main && echo "El repositorio ha sido actualizado satisfactoriamente..."
+fi
+
