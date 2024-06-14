@@ -20,8 +20,8 @@ echo "Express Arrancado satisfactoriamente  ..."
 
 # Arrancar servidor Angular
 echo "Arrancando servidor Angular..."
-cd /home/ubuntu/kwProy02/proyLavanderia02/dist/proy-lavanderia02
-http-server -p 3008 &
+cd "$ANGULAR_DIR"
+http-server -p 3008 &> "$ANGULAR_DIR/angular.log" &
 echo "Angular Arrancado satisfactoriamente  ..."
 
 echo "Todos los servicios han sido iniciados."
