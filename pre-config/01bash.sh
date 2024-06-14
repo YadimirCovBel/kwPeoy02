@@ -15,10 +15,10 @@ echo "Archivo de redes creado satisfactoriamente"
 
 
 
-# instalacion de paquetes basicos en Rasberry pi
-echo "actualizando..."
-sudo apt update
-echo "Update satisfactoriamente..."
+# Instalación de paquetes básicos en Raspberry Pi
+echo "Actualizando..."
+sudo apt update && echo "Update satisfactoriamente..."
+
 
 echo "instalando build esential ..."
 sudo apt install -y build-essential
