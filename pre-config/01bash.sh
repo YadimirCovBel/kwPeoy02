@@ -1,5 +1,10 @@
 #!/usr/bin/bash
 
+# Definición de variables para rutas
+BACKEND_DIR="/home/ubuntu/kwProy02/backend"
+ANGULAR_DIR="/home/ubuntu/kwProy02/proyLavanderia02/dist/proy-lavanderia02"
+PRE_CONFIG_DIR="/home/ubuntu/kwProy02/pre-config"
+
 echo "Leyendo directorio..."
 ls > procesos.txt
 echo "Archivo generado satisfactoriamente"
@@ -8,10 +13,6 @@ echo "Leyendo información de red..."
 ip addr > redes.txt
 echo "Archivo de redes creado satisfactoriamente"
 
-export SYSTEMD_DIRECTORY=/home/ubuntu/kwProy02/pre-config
-export SYSTEMD_START=/bin/bash /home/ubuntu/kwProy02/pre-config/02bash.sh
-export BACKEND_DIR="/home/ubuntu/kwProy02/backend"
-export ANGULAR_DIR="/home/ubuntu/kwProy02/proyLavanderia02/dist/proy-lavanderia02"
 
 
 # instalacion de paquetes basicos en Rasberry pi
