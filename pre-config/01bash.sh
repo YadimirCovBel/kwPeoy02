@@ -6,11 +6,11 @@ ANGULAR_DIR="/home/ubuntu/kwProy02/proyLavanderia02/dist/proy-lavanderia02"
 PRE_CONFIG_DIR="/home/ubuntu/kwProy02/pre-config"
 
 echo "Leyendo directorio..."
-ls > procesos.txt
+ls > "$PRE_CONFIG_DIR/procesos.txt"
 echo "Archivo generado satisfactoriamente"
 
 echo "Leyendo información de red..."
-ip addr > redes.txt
+ip addr > "$PRE_CONFIG_DIR/redes.txt"
 echo "Archivo de redes creado satisfactoriamente"
 
 
