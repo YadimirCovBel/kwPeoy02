@@ -14,8 +14,8 @@ echo "MongoDB Arrancado satisfactoriamente..."
 
 # Arrancar Express
 echo "Arrancando Express..."
-cd /home/ubuntu/kwProy02/backend/server.js
-node server.js &
+cd "$BACKEND_DIR"
+node server.js &> "$BACKEND_DIR/express.log" &
 echo "Express Arrancado satisfactoriamente  ..."
 
 # Arrancar servidor Angular
