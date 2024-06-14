@@ -57,10 +57,10 @@ fi
 
 
 # extracting ssh key
-echo "extracting key..."
-ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N ""
-cat "$HOME/.ssh/id_rsa.pub"
-echo "the key has been extracted satisfactorily ..."
+if [ ! -f "$HOME/.ssh/id_rsa" ]; then
+    echo "Extrayendo clave..."
+    ssh-keygen -t rsa -q -f "$HOME/.ssh/id_rsa" -N "" && cat "$HOME/.ssh/id_rsa.pub" && echo "La clave ha sido extraída satisfactoriamente..."
+fi
 
 # cloning git
 echo "cloning repo..."
