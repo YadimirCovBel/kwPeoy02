@@ -1,5 +1,10 @@
 #!/usr/bin/bash
 
+# Definición de variables para rutas
+BACKEND_DIR="/home/ubuntu/kwProy02/backend"
+ANGULAR_DIR="/home/ubuntu/kwProy02/proyLavanderia02/dist/proy-lavanderia02"
+
+
 # Arrancar MongoDB
 echo "Arrancando MongoDB..."
 sudo systemctl start mongod
