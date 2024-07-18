@@ -25,7 +25,7 @@ export class NotaNuevaComponent {
     { nombre: 'servicioFrente', servicios: [ 'encargoPorKilo', 'planchaDocena', 'planchaPieza', 'blusas', 'camisas', 'corbatas', 'chamarras', 'playeras', 'faldas', 'pantalones', 'sacos', 'sweters', 'trajes2Pz', 'trajes3Pz', 'vestidos' ] },
     // ... otros clientes ...
   ];
-  
+   
   
   constructor(private http: HttpClient) {
     this.folioActual = Number(localStorage.getItem('ultimoFolio')) || 0;
@@ -62,11 +62,11 @@ export class NotaNuevaComponent {
   enviarDatos() {
 
      try {
-    // Verifica que this.fechaNota sea una fecha válida.
+      // Validate the date before proceeding.
     if (!this.fechaNota || isNaN(new Date(this.fechaNota).getTime())) {
-      throw new Error('La fechaNota no es una fecha válida.');
+      alert('La fecha de la nota no es válida. Por favor, verifique.');
+      return; // Stop the function if the date is not valid.
     }
-
      // Convierte la fecha a formato ISO solo si es válida.
      const fechaISO = new Date(this.fechaNota).toISOString();
      const datosAEnviar = {
@@ -77,13 +77,17 @@ export class NotaNuevaComponent {
           folio: this.folioActual,
           fecha: fechaISO,
         };
-  
-        this.http.post('http://localhost:3002/servicios', datosAEnviar).subscribe({
+          console.log('Sending data:', datosAEnviar); // Debugging log
+
+        this.http.post('http://localhost:3002/servicios', 
+          datosAEnviar).subscribe({
           next: (res) => {
-            console.log('Datos enviados', res);
+            console.log('Datos enviados', res); // Debugging log
             this.limpiarFormulario();
           },
-          error: (err) => console.error('Error al enviar datos', err)
+          error: (err) => {
+            console.error('Error al enviar datos', err) // Debugging log
+          }
         });
       } catch (error) {
         console.error('Error al preparar o enviar los datos:', error);
