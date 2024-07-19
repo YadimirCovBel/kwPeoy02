@@ -84,18 +84,21 @@ export class NotaNuevaComponent {
 
         this.http.post('http://localhost:3002/servicios', 
           datosAEnviar).subscribe({
-          next: (res) => {
-            console.log('Datos enviados', res); // Debugging log
+          next: (response: any) => {
+            console.log('Datos enviados', response); // Debugging log
+            alert(`Nota creada con éxito. ID de la nota: ${response._id}`);
             this.limpiarFormulario();
           },
           error: (err) => {
             console.error('Error al enviar datos', err) // Debugging log
+            alert('Error al enviar la nota. ')
           }
         });
       } catch (error) {
         console.error('Error al preparar o enviar los datos:', error);
         alert('Hubo un error al preparar los datos para enviar. por favor, revise el formulario. ')
       }
+      
     }
 
     limpiarFormulario() {
