@@ -62,6 +62,7 @@ export class NotaNuevaComponent {
   enviarDatos() {
 
      try {
+      console.log('Current fechaNota value: ', this.fechaNota); // Debuggeing log
       // Validate the date before proceeding.
     if (!this.fechaNota || isNaN(new Date(this.fechaNota).getTime())) {
       alert('La fecha de la nota no es válida. Por favor, verifique.');
@@ -91,6 +92,7 @@ export class NotaNuevaComponent {
         });
       } catch (error) {
         console.error('Error al preparar o enviar los datos:', error);
+        alert('Hubo un error al preparar los datos para enviar. por favor, revise el formulario. ')
       }
     }
 
