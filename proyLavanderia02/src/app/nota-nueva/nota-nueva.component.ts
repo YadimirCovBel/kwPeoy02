@@ -35,7 +35,9 @@ export class NotaNuevaComponent {
     // Método para actualizar la fecha y hora en tiempo real
     actualizarFechaHora() {
       const fechaUTC = new Date();
-      this.fechaNota = fechaUTC.toLocaleString('es-MX', { timeZone: 'America/Mexico_City' });
+      const offset = fechaUTC.getTimezoneOffset() * 60000;//get timezone 
+      const localISOTime = (new Date(fechaUTC.getTime() - offset)).toISOString().slice(0, -1);
+      this.fechaNota = localISOTime.replace('T', ' ').replace(/\..+/, '');
     }
     
     // Método para incrementar el folio cada vez que se agrega un servicio
