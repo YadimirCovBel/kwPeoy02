@@ -30,6 +30,7 @@
     <li *ngFor="let servicio of listaServicios; let i = index">
       {{ servicio.servicio }}: {{ servicio.cantidad }}
       <button (click)="editNote(i)">Editar</button>
+      <button (click)="deleteService(i)">Borrar</button>
     </li>
   </ul>
 
