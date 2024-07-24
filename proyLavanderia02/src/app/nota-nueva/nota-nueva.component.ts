@@ -11,6 +11,7 @@ export class NotaNuevaComponent {
   servicioSeleccionado = '';
   cantidad = 0;
   folioActual = 0; // Para el folio automático
+  noteId: string = ''; //i want this to be the identification metod of each note insted of folio
   fechaNota = ''; // Propiedad para la fecha y hora de la nota
   razonDescarteSeleccionada = ''; // Nueva propiedad para el selector de razón del descarte
   listaServicios: { servicio: string; cantidad: number; }[] = [];
@@ -25,6 +26,9 @@ export class NotaNuevaComponent {
     { nombre: 'servicioFrente', servicios: [ 'encargoPorKilo', 'planchaDocena', 'planchaPieza', 'blusas', 'camisas', 'corbatas', 'chamarras', 'playeras', 'faldas', 'pantalones', 'sacos', 'sweters', 'trajes2Pz', 'trajes3Pz', 'vestidos' ] },
     // ... otros clientes ...
   ];
+  
+  // Property to store the currently selected service for editing
+  selectedServiceIndex: number | null = null;
    
   
   constructor(private http: HttpClient) {
@@ -86,7 +90,13 @@ export class NotaNuevaComponent {
           datosAEnviar).subscribe({
           next: (response: any) => {
             console.log('Datos enviados', response); // Debugging log
-            alert(`Nota creada con éxito. ID de la nota: ${response._id}`);
+            this.noteId = response._id; // Save the _id of the note
+            
+            //create a summary of the note
+            const noteSummary= this.listaServicios.map(s =>
+              `${s.servicio}: ${s.cantidad}`).join(', ');
+              // Display the _id and summary in an alert
+              alert(`Nota creada con éxito. ID de la nota: ${this.noteId}\nResume de la nota: ${noteSummary}`);
             this.limpiarFormulario();
           },
           error: (err) => {
@@ -114,5 +124,48 @@ export class NotaNuevaComponent {
   getServiciosClienteSeleccionado() {
     const cliente = this.clientes.find(c => c.nombre === this.clienteSeleccionado);
     return cliente ? cliente.servicios : [];
+  }
+
+  editNote(index: number) {
+    // SelectedServiceIndex to the index of the service to be edited
+    this.selectedServiceIndex = index;
+    // Load the service data into the form fields
+    const serviceToEdit = this.listaServicios[index];
+    this.servicioSeleccionado = serviceToEdit.servicio;
+    this.cantidad = serviceToEdit.cantidad;
+  }
+  // Call this method when the user saves the changes to the service
+  saveServiceChanges(){
+    if (this.selectedServiceIndex !== null) {
+      // Update the service in the listaServicios array
+      this.listaServicios[this.selectedServiceIndex] = {
+        servicio: this.servicioSeleccionado,
+        cantidad: this.cantidad
+      };
+      //if editing an existing note, send a put request to the backend
+      if (this.noteId){
+        const updateData = {
+          cliente: this.clienteSeleccionado,
+          servicios:this.listaServicios,
+        };
+        this.http.put(`http://localhost:3002/servicios/${this.noteId}`, 
+          updateData).subscribe({
+            next: (response) => {
+              console.log('Note Updated successfully', response);
+              alert('Nota actualizada con exito.')
+            },
+            error: (err) => {
+              console.error('Error updating note', err);
+              alert('Error al Actualizar la nota.');
+            }
+        });
+      }
+      // Clear the form and reset the selectedServiceIndex
+      this.servicioSeleccionado = '';
+      this.cantidad = 0;
+      this.selectedServiceIndex = null;
+
+    }
+
   }
 }
