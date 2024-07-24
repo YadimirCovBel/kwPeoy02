@@ -147,6 +147,18 @@ export class NotaNuevaComponent {
         servicio: this.servicioSeleccionado,
         cantidad: this.cantidad
       };
+    }else{
+      // If no service is selected for editing, add a new service
+      this.listaServicios.push({
+        servicio: this.servicioSeleccionado,
+        cantidad: this.cantidad
+      });
+    }
+      //reset the form
+      this.servicioSeleccionado = '';
+      this.cantidad = 0;
+      this.selectedServiceIndex = null;
+      
       //if editing an existing note, send a put request to the backend
       if (this.noteId){
         const updateData = {
@@ -176,4 +188,3 @@ export class NotaNuevaComponent {
     }
 
   }
-}
