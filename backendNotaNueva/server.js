@@ -53,6 +53,22 @@
             res.status(500).json({message: 'error al obtener los servicios'});
         }
     })
+    // PUT route to update an existing service note
+    app.put('/servicios/:id', async (req,res) => {
+        try{
+            const updateServicio = await Servicio.findByIdAndUpdate(req.params.id, //_id of the note to update
+                req.body, //the updated data
+                {new: true} //Option to return the ipdate document
+                );
+                if (updatedServicio) {
+                    res.status(200).json(updatedServicio);
+                } else {
+                    res.status(404).send('Servicio not found with id' + req.params.id);
+                }
+        }catch (error) {
+            res.status(500).json({message: 'Error updating servicio', error: error.message});
+        }
+    });
 
     // Cambio de puerto de 3001 a 3002
     const PORT = 3002; // Modificación realizada aquí
