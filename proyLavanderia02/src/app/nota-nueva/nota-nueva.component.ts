@@ -134,6 +134,11 @@ export class NotaNuevaComponent {
     this.servicioSeleccionado = serviceToEdit.servicio;
     this.cantidad = serviceToEdit.cantidad;
   }
+
+  //added metod to delete services from the list
+  deleteService(index: number) {
+    this.listaServicios.splice(index, 1);
+  }
   // Call this method when the user saves the changes to the service
   saveServiceChanges(){
     if (this.selectedServiceIndex !== null) {
@@ -159,7 +164,10 @@ export class NotaNuevaComponent {
               alert('Error al Actualizar la nota.');
             }
         });
-      }
+      };
+      
+
+      //
       // Clear the form and reset the selectedServiceIndex
       this.servicioSeleccionado = '';
       this.cantidad = 0;
