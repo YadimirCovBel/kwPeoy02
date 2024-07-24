@@ -26,5 +26,12 @@
   <ul>
     <li *ngFor="let servicio of listaServicios">{{servicio.servicio}}: {{servicio.cantidad}}</li>
   </ul>
+  <ul>
+    <li *ngFor="let servicio of listaServicios; let i = index">
+      {{ servicio.servicio }}: {{ servicio.cantidad }}
+      <button (click)="editNote(i)">Editar</button>
+    </li>
+  </ul>
+
   <button (click)="enviarDatos()">Enviar</button>
 </div>
