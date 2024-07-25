@@ -1,7 +1,7 @@
  <p>nota-nueva works!</p>
  <div>
   <h1>Nota Nueva</h1>
-  <p>Fecha y hora actual: {{ fechaNota }}</p> <!-- Se actualiza en tiempo real -->
+  <p>Fecha y hora actual: {{ fechaNota | date: 'medium' }}</p> <!-- Se actualiza en tiempo real -->
   <p>Folio actual: {{ folioActual }}</p> <!-- Muestra el folio en la interfaz -->
  <p> <label>Cliente:</label>
   <select [(ngModel)]="clienteSeleccionado">
