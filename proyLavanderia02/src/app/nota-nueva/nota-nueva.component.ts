@@ -76,8 +76,6 @@ export class NotaNuevaComponent {
     console.log('Current fechaNota value: ', this.fechaNota); // Debuggeing log
     console.log('Sending data:', datosAEnviar); // Debugging log
 
-     // Convierte la fecha a formato ISO solo si es válida.
-     const fechaISO = new Date(this.fechaNota).toISOString();
 
     this.http.post('http://localhost:3002/servicios', 
       datosAEnviar).subscribe({
@@ -108,7 +106,8 @@ export class NotaNuevaComponent {
         updateData).subscribe({
           next: (response) => {
             console.log('Note Updated successfully', response);
-            alert('Nota actualizada con exito.')
+            alert('Nota actualizada con exito.');
+            this.limpiarFormulario();
           },
           error: (err) => {
             console.error('Error updating note', err);
