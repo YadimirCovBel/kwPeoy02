@@ -64,7 +64,38 @@ export class NotaNuevaComponent {
       this.cantidad = 0;
       }
   }
+  createNote(){
+    const datosAEnviar = {
+      cliente: this.clienteSeleccionado,
+      servicios: this.listaServicios,
+      razonDescarte: this.clienteSeleccionado === 'descartesHospitalSanJavier' 
+        ? this.razonDescarteSeleccionada : undefined,
+      folio: this.folioActual,
+      fecha: new Date(this.fechaNota).toISOString(),
+    };
+    
+    console.log('Sending data:', datosAEnviar); // Debugging log
 
+    this.http.post('http://localhost:3002/servicios', 
+      datosAEnviar).subscribe({
+      next: (response: any) => {
+        console.log('Datos enviados', response); // Debugging log
+        this.noteId = response._id; // Save the _id of the note
+        
+        //create a summary of the note
+        const noteSummary= this.listaServicios.map(s =>
+          `${s.servicio}: ${s.cantidad}`).join(', ');
+          // Display the _id and summary in an alert
+          alert(`Nota creada con éxito. ID de la nota: ${this.noteId}\nResume de la nota: ${noteSummary}`);
+        this.limpiarFormulario();
+      },
+      error: (err) => {
+        console.error('Error al enviar datos', err) // Debugging log
+        alert('Error al enviar la nota. ')
+      }
+    });
+
+  }
   enviarDatos() {
 
      try {
@@ -76,34 +107,8 @@ export class NotaNuevaComponent {
     }
      // Convierte la fecha a formato ISO solo si es válida.
      const fechaISO = new Date(this.fechaNota).toISOString();
-     const datosAEnviar = {
-          cliente: this.clienteSeleccionado,
-          servicios: this.listaServicios,
-          razonDescarte: this.clienteSeleccionado === 'descartesHospitalSanJavier' 
-            ? this.razonDescarteSeleccionada : undefined,
-          folio: this.folioActual,
-          fecha: fechaISO,
-        };
-          console.log('Sending data:', datosAEnviar); // Debugging log
-
-        this.http.post('http://localhost:3002/servicios', 
-          datosAEnviar).subscribe({
-          next: (response: any) => {
-            console.log('Datos enviados', response); // Debugging log
-            this.noteId = response._id; // Save the _id of the note
-            
-            //create a summary of the note
-            const noteSummary= this.listaServicios.map(s =>
-              `${s.servicio}: ${s.cantidad}`).join(', ');
-              // Display the _id and summary in an alert
-              alert(`Nota creada con éxito. ID de la nota: ${this.noteId}\nResume de la nota: ${noteSummary}`);
-            this.limpiarFormulario();
-          },
-          error: (err) => {
-            console.error('Error al enviar datos', err) // Debugging log
-            alert('Error al enviar la nota. ')
-          }
-        });
+     
+        
       } catch (error) {
         console.error('Error al preparar o enviar los datos:', error);
         alert('Hubo un error al preparar los datos para enviar. por favor, revise el formulario. ')
