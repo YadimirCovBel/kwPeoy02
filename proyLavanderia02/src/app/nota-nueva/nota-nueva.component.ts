@@ -96,6 +96,23 @@ export class NotaNuevaComponent {
     });
 
   }
+    updateNote(){
+      const updateData = {
+        cliente: this.clienteSeleccionado,
+        servicios:this.listaServicios,
+      };
+      this.http.put(`http://localhost:3002/servicios/${this.noteId}`, 
+        updateData).subscribe({
+          next: (response) => {
+            console.log('Note Updated successfully', response);
+            alert('Nota actualizada con exito.')
+          },
+          error: (err) => {
+            console.error('Error updating note', err);
+            alert('Error al Actualizar la nota.');
+          }
+      });
+    }
   enviarDatos() {
 
      try {
@@ -166,21 +183,7 @@ export class NotaNuevaComponent {
       
       //if editing an existing note, send a put request to the backend
       if (this.noteId){
-        const updateData = {
-          cliente: this.clienteSeleccionado,
-          servicios:this.listaServicios,
-        };
-        this.http.put(`http://localhost:3002/servicios/${this.noteId}`, 
-          updateData).subscribe({
-            next: (response) => {
-              console.log('Note Updated successfully', response);
-              alert('Nota actualizada con exito.')
-            },
-            error: (err) => {
-              console.error('Error updating note', err);
-              alert('Error al Actualizar la nota.');
-            }
-        });
+        
       };
       
 
