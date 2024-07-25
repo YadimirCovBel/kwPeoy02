@@ -73,8 +73,11 @@ export class NotaNuevaComponent {
       folio: this.folioActual,
       fecha: new Date(this.fechaNota).toISOString(),
     };
-    
+    console.log('Current fechaNota value: ', this.fechaNota); // Debuggeing log
     console.log('Sending data:', datosAEnviar); // Debugging log
+
+     // Convierte la fecha a formato ISO solo si es válida.
+     const fechaISO = new Date(this.fechaNota).toISOString();
 
     this.http.post('http://localhost:3002/servicios', 
       datosAEnviar).subscribe({
@@ -112,20 +115,56 @@ export class NotaNuevaComponent {
             alert('Error al Actualizar la nota.');
           }
       });
+      
     }
+    saveServiceChanges(){
+      if (this.selectedServiceIndex !== null) {
+        // Update the service in the listaServicios array
+        this.listaServicios[this.selectedServiceIndex] = {
+          servicio: this.servicioSeleccionado,
+          cantidad: this.cantidad
+        };
+      }else{
+        // If no service is selected for editing, add a new service
+        this.listaServicios.push({
+          servicio: this.servicioSeleccionado,
+          cantidad: this.cantidad
+        });
+      }
+        //reset the form
+        this.servicioSeleccionado = '';
+        this.cantidad = 0;
+        this.selectedServiceIndex = null;
+        
+        //if editing an existing note, send a put request to the backend
+        if (this.noteId){
+          this.updateNote();
+        };
+        
+  
+        //
+        // Clear the form and reset the selectedServiceIndex
+        this.servicioSeleccionado = '';
+        this.cantidad = 0;
+        this.selectedServiceIndex = null;
+  
+      }
   enviarDatos() {
 
      try {
-      console.log('Current fechaNota value: ', this.fechaNota); // Debuggeing log
       // Validate the date before proceeding.
-    if (!this.fechaNota || isNaN(new Date(this.fechaNota).getTime())) {
-      alert('La fecha de la nota no es válida. Por favor, verifique.');
+    if (!this.fechaNota || isNaN(new 
+      Date(this.fechaNota).getTime())) {
+        alert('La fecha de la nota no es válida. Por favor, verifique.');
       return; // Stop the function if the date is not valid.
-    }
-     // Convierte la fecha a formato ISO solo si es válida.
-     const fechaISO = new Date(this.fechaNota).toISOString();
-     
-        
+    } if(this.noteId) {
+        //If noteId is set, Update the existing note
+        this.updateNote();
+
+      }else{
+        //If noteId is not set, create a new note
+        this.createNote();
+        }
       } catch (error) {
         console.error('Error al preparar o enviar los datos:', error);
         alert('Hubo un error al preparar los datos para enviar. por favor, revise el formulario. ')
@@ -162,37 +201,6 @@ export class NotaNuevaComponent {
     this.listaServicios.splice(index, 1);
   }
   // Call this method when the user saves the changes to the service
-  saveServiceChanges(){
-    if (this.selectedServiceIndex !== null) {
-      // Update the service in the listaServicios array
-      this.listaServicios[this.selectedServiceIndex] = {
-        servicio: this.servicioSeleccionado,
-        cantidad: this.cantidad
-      };
-    }else{
-      // If no service is selected for editing, add a new service
-      this.listaServicios.push({
-        servicio: this.servicioSeleccionado,
-        cantidad: this.cantidad
-      });
-    }
-      //reset the form
-      this.servicioSeleccionado = '';
-      this.cantidad = 0;
-      this.selectedServiceIndex = null;
-      
-      //if editing an existing note, send a put request to the backend
-      if (this.noteId){
-        
-      };
-      
-
-      //
-      // Clear the form and reset the selectedServiceIndex
-      this.servicioSeleccionado = '';
-      this.cantidad = 0;
-      this.selectedServiceIndex = null;
-
-    }
+  
 
   }
