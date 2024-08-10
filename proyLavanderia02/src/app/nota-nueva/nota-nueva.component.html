@@ -21,14 +21,14 @@
 </div>
   <label>Cantidad:</label>
   <input type="number" [(ngModel)]="cantidad">
-  <button (click)="agregarServicio()" [disabled]="clienteSeleccionado === 'descartesHospitalSanJavier' && !razonDescarteSeleccionada">Agregar Servicio</button>
+  <button type="button" (click)="agregarServicio()" [disabled]="clienteSeleccionado === 
+  'descartesHospitalSanJavier' && !razonDescarteSeleccionada">Agregar Servicio</button>
   <ul>
     <li *ngFor="let servicio of listaServicios">{{servicio.servicio}}: {{servicio.cantidad}}</li>
   </ul>
   <ul>
     <li *ngFor="let servicio of listaServicios; let i = index">
       {{ servicio.servicio }}: {{ servicio.cantidad }}
-      <button (click)="editNote(i)">Editar</button>
       <button (click)="deleteService(i)">Borrar</button>
     </li>
   </ul>
