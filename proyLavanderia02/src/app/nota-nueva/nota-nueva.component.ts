@@ -10,6 +10,7 @@ export class NotaNuevaComponent {
   clienteSeleccionado = '';
   servicioSeleccionado = '';
   cantidad = 0;
+  folioActual = 0; // Para el folio automático
   noteId: string = ''; //i want this to be the identification metod of each note insted of folio
   fechaNota = ''; // Propiedad para la fecha y hora de la nota
   razonDescarteSeleccionada = ''; // Nueva propiedad para el selector de razón del descarte
@@ -41,6 +42,12 @@ export class NotaNuevaComponent {
       const offset = fechaUTC.getTimezoneOffset() * 60000;//get timezone 
       const localISOTime = (new Date(fechaUTC.getTime() - offset)).toISOString().slice(0, -1);
       this.fechaNota = localISOTime.replace('T', ' ').replace(/\..+/, '');
+    }
+    
+    // Método para incrementar el folio cada vez que se agrega un servicio
+    generarFolio() {
+      this.folioActual++; // Incrementa el folio actual
+      localStorage.setItem('ultimoFolio', this.folioActual.toString());
     }
 
   agregarServicio() {
