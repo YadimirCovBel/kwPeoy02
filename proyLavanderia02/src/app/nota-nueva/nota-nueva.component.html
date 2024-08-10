@@ -4,28 +4,29 @@
   <p>Fecha y hora actual: {{ fechaNota | date: 'medium' }}</p> <!-- Se actualiza en tiempo real -->
   <p> <label>Cliente:</label>
   <select [(ngModel)]="clienteSeleccionado">
-    <option *ngFor="let cliente of clientes" [value]="cliente.nombre">{{cliente.nombre}}</option>
+    <option *ngFor="let cliente of clientes" 
+    [value]="cliente.nombre">{{cliente.nombre}}</option>
   </select>
 </p>
   <label>Servicio:</label>
   <select [(ngModel)]="servicioSeleccionado">
-    <option *ngFor="let servicio of getServiciosClienteSeleccionado()" [value]="servicio">{{servicio}}</option>
+    <option *ngFor="let servicio of 
+    getServiciosClienteSeleccionado()" [value]="servicio">{{servicio}}</option>
   </select>
 
   <!-- Este es el nuevo selector que se mostrará solo si se selecciona 'descartesHospitalSanJavier' -->
 <div *ngIf="clienteSeleccionado === 'descartesHospitalSanJavier'">
   <label>Razón del Descarte:</label>
   <select [(ngModel)]="razonDescarteSeleccionada">
-    <option *ngFor="let razon of razonesDescarte" [value]="razon">{{ razon }}</option>
+    <option *ngFor="let razon of razonesDescarte" 
+    [value]="razon">{{ razon }}</option>
   </select>
 </div>
   <label>Cantidad:</label>
   <input type="number" [(ngModel)]="cantidad">
-  <button type="button" (click)="agregarServicio()" [disabled]="clienteSeleccionado === 
-  'descartesHospitalSanJavier' && !razonDescarteSeleccionada">Agregar Servicio</button>
-  <ul>
-    <li *ngFor="let servicio of listaServicios">{{servicio.servicio}}: {{servicio.cantidad}}</li>
-  </ul>
+  <button type="button" (click)="agregarServicio()" 
+  [disabled]="clienteSeleccionado === 'descartesHospitalSanJavier' && 
+  !razonDescarteSeleccionada">Agregar Servicio</button>
   <ul>
     <li *ngFor="let servicio of listaServicios; let i = index">
       {{ servicio.servicio }}: {{ servicio.cantidad }}
