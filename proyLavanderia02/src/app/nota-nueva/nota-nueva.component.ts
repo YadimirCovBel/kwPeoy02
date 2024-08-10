@@ -51,18 +51,26 @@ export class NotaNuevaComponent {
     }
 
   agregarServicio() {
-    if (this.clienteSeleccionado === 'descartesHospitalSanJavier' && !this.razonDescarteSeleccionada) {
+    if (this.clienteSeleccionado === 'descartesHospitalSanJavier' && 
+      !this.razonDescarteSeleccionada) {
       console.error('Debes seleccionar una razón de descarte');
       return; // No permitir agregar el servicio si no se ha seleccionado una razón de descarte
     }// Lógica para manejar la razón del descarte
-    if (this.servicioSeleccionado && this.cantidad > 0) {
-      this.listaServicios.push({
-        servicio: this.servicioSeleccionado,
-        cantidad: this.cantidad
-      });
-      this.servicioSeleccionado = '';
-      this.cantidad = 0;
-      }
+    const existingServiceIndex = this.listaServicios.findIndex(s => 
+      s.servicio === this.servicioSeleccionado && s.cantidad === 
+      this.cantidad);
+    if(existingServiceIndex===-1){
+      if (this.servicioSeleccionado && this.cantidad > 0) {
+        this.listaServicios.push({
+          servicio: this.servicioSeleccionado,
+          cantidad: this.cantidad
+        });
+        this.servicioSeleccionado = '';
+        this.cantidad = 0;
+        }
+    }else{
+      console.error('el servicio ya ha sido registrado');
+    }
   }
   createNote(){
     const datosAEnviar = {
